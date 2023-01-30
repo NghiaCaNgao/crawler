@@ -134,7 +134,7 @@ describe("Crawler testing pack", () => {
             }
 
             expect(tester(test_pass)).toBe(DEFAULT_VALUE.host + "?b=10&d=hello");
-            expect(() => tester(test_fail)).toThrow("d is not in query type");
+            expect(() => tester(test_fail)).toThrow("d is not in Query type");
         })
     });
 

@@ -1,16 +1,17 @@
-import { Calendar, ResponseCalendar, Response, CrawlerOption, Query } from "../types";
+import { Calendar, ResponseCalendar, Response, Query, CalendarOption } from "../types";
 import Crawler from "./crawler";
 
 export default class CalendarCrawler extends Crawler {
     private static readonly HostName: string = "http://112.137.129.115/tkb/listbylist.php";
-    constructor(option: CrawlerOption = {}) {
+
+    constructor(option: CalendarOption = {}) {
         super(option || {
             host: CalendarCrawler.HostName
         });
     }
 
     /**
-     * Convert from "n-m" lesson format to [n,m].
+     * Convert lesson from "n-m" format to [n,m].
      * 
      * @param data input
      * @returns Array<number>
@@ -35,9 +36,10 @@ export default class CalendarCrawler extends Crawler {
      * @returns 
      */
     protected parse(data: string): ResponseCalendar {
+        // Find all text matches with pattern <tr><td>....</td></tr>
         const rowContents: string[] = data.match(/<tr>(<td(.|\n)*?<\/td>)*<\/tr>/g)?.slice(2) || [];
         const rowData: Calendar[] = rowContents.map(item => {
-            // Expose item data
+            // Find all fields in given text. Each field places in <td></td>
             const colContents: string[] = item.match(/<td(.|\n)*?td>/g);
             const data: string[] = colContents.map(content =>
                 content.match(/>(.|\n)*?</g)![0].slice(1, -1));

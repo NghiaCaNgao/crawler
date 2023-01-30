@@ -6,7 +6,6 @@ export interface CrawlerOption {
 }
 
 export interface CalendarOption extends CrawlerOption {
-    semesterID?: string,
 }
 
 export interface SubjectOption extends CrawlerOption {

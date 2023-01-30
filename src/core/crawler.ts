@@ -1,6 +1,6 @@
 /**
  * @author: Nghiacangao
- * @description: An abstract class provided core methods for derived class and play as a wrapper class
+ * @description: An abstract class played as a wrapper class and provided core methods for the derived includes getter/ setter, join params, fetch and parse fetched data
  */
 
 import axios from "axios";
@@ -40,23 +40,27 @@ export default abstract class Crawler {
 
     /**
      * Join all queries into single url string
-     * @param query query 
-     * @returns url
+     * @param query query data
+     * @returns url after joining
      */
     private joinParams(query: Query = {}): string {
         return this.host + "?" + Object.keys(query)
             .map(key => {
                 if (this.keyMap.get(key))
                     return this.keyMap.get(key) + "=" + query[key];
-                else throw new Error(key + " is not in query type")
+                else throw new Error(key + " is not in Query type")
             })
             .join("&");
     }
 
     /**
-     * Fetch data
-     * @param query 
-     * @returns {Promise<Response<string>>} response data structure
+     * Fetch data.
+     * Code:
+     *      200: success
+     *      500: error while converting or fetching data (error not in 2xx)
+     * 
+     * @param query query data
+     * @returns {Promise<Response<string>>} Response in raw text.
      */
     protected async fetch(query: Query = {}): Promise<Response<string>> {
         try {
@@ -76,9 +80,13 @@ export default abstract class Crawler {
     }
 
     /**
-     * Convert data to json.
-     * @param {Response<string>} fetchedData 
-     * @returns {Response<T | object>}
+     * Convert data to json. 
+     * Code:
+     *      200: success
+     *      400: error while parsing or response code is not 200
+     * 
+     * @param {Response<string>} fetchedData Response in raw text.
+     * @returns {Response<T | object>} Response in json.
      */
     protected parseResponse<T>(
         fetchedData: Response<string>,
@@ -105,7 +113,7 @@ export default abstract class Crawler {
 
     /**
      * Default parser.
-     * @param data 
+     * @param {string} data raw string extract from response.
      */
     protected abstract parse(data: string): unknown
 }

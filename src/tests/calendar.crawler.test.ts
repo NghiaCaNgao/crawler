@@ -15,6 +15,7 @@ import ParseFuncInput_3 from "./server_test/data/test_parse_calendar_crawler_inp
 
 import ParseFuncOutput_1 from "./server_test/data/test_parse_calendar_crawler_output_1.json";
 // ====================================================
+
 describe("Calendar Crawler Testing", () => {
     describe("Constructor testing", () => {
         test("Test default constructor", () => {
@@ -84,7 +85,7 @@ describe("Calendar Crawler Testing", () => {
             const tester = async (query?: Query) => {
                 return await instance.getCalendar(query);
             }
-            // await tester()
+
             expect(await tester()).toStrictEqual(GetCalendarOutput_1); // Pass
             expect(await tester({ is_fail: 2 })).toStrictEqual(GetCalendarOutput_2); // Pass
             expect(await tester({ is_fail: 3 })).toStrictEqual(GetCalendarOutput_3) // Pass
