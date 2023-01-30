@@ -3,14 +3,18 @@ import CalendarCrawler from "../core/calendar.crawler";
 import Crawler from "../core/crawler";
 import { CrawlerOption, Query } from "../types";
 
+// Expected data
+// ====================================================
 import GetCalendarOutput_1 from "./server_test/data/test_get_calendar_1.json";
 import GetCalendarOutput_2 from "./server_test/data/test_get_calendar_2.json";
 import GetCalendarOutput_3 from "./server_test/data/test_get_calendar_3.json";
+
 import ParseFuncInput_1 from "./server_test/data/test_parse_calendar_crawler_input_1.json";
 import ParseFuncInput_2 from "./server_test/data/test_parse_calendar_crawler_input_2.json";
 import ParseFuncInput_3 from "./server_test/data/test_parse_calendar_crawler_input_3.json";
-import ParseFuncOutput_1 from "./server_test/data/test_parse_calendar_crawler_output_1.json";
 
+import ParseFuncOutput_1 from "./server_test/data/test_parse_calendar_crawler_output_1.json";
+// ====================================================
 describe("Calendar Crawler Testing", () => {
     describe("Constructor testing", () => {
         test("Test default constructor", () => {
@@ -22,29 +26,21 @@ describe("Calendar Crawler Testing", () => {
 
             const DEFAULT_VALUE: CrawlerOption = {
                 host: "http://112.137.129.115/tkb/listbylist.php",
-                limit: Crawler.DEFAULT_VALUE.limit,
-                semesterID: Crawler.DEFAULT_VALUE.semesterID,
                 keyMap: Crawler.DEFAULT_VALUE.keyMap
             }
 
             const CUSTOM_VALUE: CrawlerOption = {
                 host: "http://localhost:5000/calendar",
-                limit: Crawler.DEFAULT_VALUE.limit,
-                semesterID: Crawler.DEFAULT_VALUE.semesterID,
                 keyMap: new Map<string, string>(Object.entries({ a: "b", c: "d" }))
             }
 
             expect({
                 host: instance_1.host,
-                limit: instance_1.limit,
-                semesterID: instance_1.semesterID,
                 keyMap: instance_1.keyMap
             }).toEqual(DEFAULT_VALUE);
 
             expect({
                 host: instance_2.host,
-                limit: instance_2.limit,
-                semesterID: instance_2.semesterID,
                 keyMap: instance_2.keyMap
             }).toEqual(CUSTOM_VALUE);
         })

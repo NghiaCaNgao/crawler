@@ -2,19 +2,24 @@ import { describe, expect, test } from "@jest/globals";
 import Crawler from "../core/crawler";
 import { CrawlerOption, Query, Response } from "../types";
 
-import expectedFetchValue_1 from "./server_test/data/test_fetch_1.json";
-import expectedFetchValue_2 from "./server_test/data/test_fetch_2.json";
-import expectedFetchValue_3 from "./server_test/data/test_fetch_3.json";
-import expectedParseResponseInput_1 from "./server_test/data/test_parseResponse_input_1.json";
-import expectedParseResponseInput_2 from "./server_test/data/test_parseResponse_input_2.json";
-import expectedParseResponseInput_3 from "./server_test/data/test_parseResponse_input_3.json";
-import expectedParseResponseInput_4 from "./server_test/data/test_parseResponse_input_4.json";
-import expectedParseResponseInput_5 from "./server_test/data/test_parseResponse_input_5.json";
-import expectedParseResponseOutput_1 from "./server_test/data/test_parseResponse_output_1.json";
-import expectedParseResponseOutput_2 from "./server_test/data/test_parseResponse_output_2.json";
-import expectedParseResponseOutput_3 from "./server_test/data/test_parseResponse_output_3.json";
-import expectedParseResponseOutput_4 from "./server_test/data/test_parseResponse_output_4.json";
-import expectedParseResponseOutput_5 from "./server_test/data/test_parseResponse_output_5.json";
+// Expected data
+// ====================================================
+import FetchValueOutput_1 from "./server_test/data/test_fetch_1.json";
+import FetchValueOutput_2 from "./server_test/data/test_fetch_2.json";
+import FetchValueOutput_3 from "./server_test/data/test_fetch_3.json";
+
+import ParseResponseInput_1 from "./server_test/data/test_parseResponse_input_1.json";
+import ParseResponseInput_2 from "./server_test/data/test_parseResponse_input_2.json";
+import ParseResponseInput_3 from "./server_test/data/test_parseResponse_input_3.json";
+import ParseResponseInput_4 from "./server_test/data/test_parseResponse_input_4.json";
+import ParseResponseInput_5 from "./server_test/data/test_parseResponse_input_5.json";
+
+import ParseResponseOutput_1 from "./server_test/data/test_parseResponse_output_1.json";
+import ParseResponseOutput_2 from "./server_test/data/test_parseResponse_output_2.json";
+import ParseResponseOutput_3 from "./server_test/data/test_parseResponse_output_3.json";
+import ParseResponseOutput_4 from "./server_test/data/test_parseResponse_output_4.json";
+import ParseResponseOutput_5 from "./server_test/data/test_parseResponse_output_5.json";
+// ====================================================
 
 // Fake derived class of Crawler class
 class FakeDerivedClass extends Crawler {
@@ -29,10 +34,8 @@ class FakeDerivedClass extends Crawler {
     }
 }
 
-const DEFAULT_VALUE = {
+const DEFAULT_VALUE: CrawlerOption = {
     host: "http://112.137.129.115/tkb/listbylist.php",
-    limit: 1000,
-    semesterID: "036",
     keyMap: new Map<string, string>()
 }
 
@@ -43,8 +46,6 @@ describe("Crawler testing pack", () => {
 
             expect({
                 host: instance.host,
-                limit: instance.limit,
-                semesterID: instance.semesterID,
                 keyMap: instance.keyMap
             }).toEqual(DEFAULT_VALUE);
         })
@@ -66,33 +67,33 @@ describe("Crawler testing pack", () => {
             expect(() => tester(test_fail)).toThrow(test_fail + " is not a valid host url");
         });
 
-        test("Test 'limit' property", () => {
-            const tester = (limit_test: number) => {
-                instance.limit = limit_test;
-                return instance.limit;
-            }
+        // test("Test 'limit' property", () => {
+        //     const tester = (limit_test: number) => {
+        //         instance.limit = limit_test;
+        //         return instance.limit;
+        //     }
 
-            const test_pass = 3100;
-            const test_fail = -1000;
+        //     const test_pass = 3100;
+        //     const test_fail = -1000;
 
-            expect(tester(test_pass)).toBe(test_pass);
-            expect(() => tester(test_fail)).toThrow(test_fail + " is not in range [0, 5000]");
-        });
+        //     expect(tester(test_pass)).toBe(test_pass);
+        //     expect(() => tester(test_fail)).toThrow(test_fail + " is not in range [0, 5000]");
+        // });
 
-        test("Test 'semesterID' property", () => {
-            const tester = (semesterID_test: string) => {
-                instance.semesterID = semesterID_test;
-                return instance.semesterID;
-            }
+        // test("Test 'semesterID' property", () => {
+        //     const tester = (semesterID_test: string) => {
+        //         instance.semesterID = semesterID_test;
+        //         return instance.semesterID;
+        //     }
 
-            const test_pass = "035";
-            const test_fail_1 = "0356";
-            const test_fail_2 = "0a3";
+        //     const test_pass = "035";
+        //     const test_fail_1 = "0356";
+        //     const test_fail_2 = "0a3";
 
-            expect(tester(test_pass)).toBe(test_pass);
-            expect(() => tester(test_fail_1)).toThrow(test_fail_1 + " is not a valid semester ID");
-            expect(() => tester(test_fail_2)).toThrow(test_fail_2 + " is not a valid semester ID");
-        })
+        //     expect(tester(test_pass)).toBe(test_pass);
+        //     expect(() => tester(test_fail_1)).toThrow(test_fail_1 + " is not a valid semester ID");
+        //     expect(() => tester(test_fail_2)).toThrow(test_fail_2 + " is not a valid semester ID");
+        // })
 
         test("Test 'keyMap' property", () => {
             const tester = (keyMap_test: Map<string, string>) => {
@@ -140,8 +141,6 @@ describe("Crawler testing pack", () => {
     test("Test 'fetch' function", async () => {
         const instance = new FakeDerivedClass({
             host: "http://localhost:5000",
-            limit: 0,
-            semesterID: "000",
             keyMap: new Map(Object.entries({
                 "a": "b",
                 "c": "d"
@@ -153,9 +152,9 @@ describe("Crawler testing pack", () => {
             return await instance["fetch"](query);
         };
 
-        expect(await tester("http://localhost:5000", { a: "12", c: 10 })).toStrictEqual(expectedFetchValue_1);
-        expect(await tester("http://localhost:5001", { a: "12", c: 10 })).toStrictEqual(expectedFetchValue_2); // fail
-        expect(await tester("http://localhost:5000", { a: "12", c: 11 })).toStrictEqual(expectedFetchValue_3); // fail
+        expect(await tester("http://localhost:5000", { a: "12", c: 10 })).toStrictEqual(FetchValueOutput_1);
+        expect(await tester("http://localhost:5001", { a: "12", c: 10 })).toStrictEqual(FetchValueOutput_2); // fail
+        expect(await tester("http://localhost:5000", { a: "12", c: 11 })).toStrictEqual(FetchValueOutput_3); // fail
     });
 
     test("Test 'parseResponse' function", () => {
@@ -170,10 +169,10 @@ describe("Crawler testing pack", () => {
             else return JSON.parse(data);
         }
 
-        expect(tester(expectedParseResponseInput_1)).toStrictEqual(expectedParseResponseOutput_1); // fail
-        expect(tester(expectedParseResponseInput_2)).toStrictEqual(expectedParseResponseOutput_2); // fail
-        expect(tester(expectedParseResponseInput_3)).toStrictEqual(expectedParseResponseOutput_3); // pass
-        expect(tester(expectedParseResponseInput_4, parse_tester)).toStrictEqual(expectedParseResponseOutput_4); // fail
-        expect(tester(expectedParseResponseInput_5, parse_tester)).toStrictEqual(expectedParseResponseOutput_5); // pass
+        expect(tester(ParseResponseInput_1)).toStrictEqual(ParseResponseOutput_1); // fail
+        expect(tester(ParseResponseInput_2)).toStrictEqual(ParseResponseOutput_2); // fail
+        expect(tester(ParseResponseInput_3)).toStrictEqual(ParseResponseOutput_3); // pass
+        expect(tester(ParseResponseInput_4, parse_tester)).toStrictEqual(ParseResponseOutput_4); // fail
+        expect(tester(ParseResponseInput_5, parse_tester)).toStrictEqual(ParseResponseOutput_5); // pass
     })
 })

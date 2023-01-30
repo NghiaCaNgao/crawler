@@ -1,23 +1,18 @@
 /**
  * @author: Nghiacangao
- * 
- * @description: This is an abstract class provided some original methods for derived class
+ * @description: An abstract class provided core methods for derived class and play as a wrapper class
  */
 
 import axios from "axios";
 import { CrawlerOption, Query, Response } from "../types";
-import { isExactMatch, isValidURL } from "../utils";
+import { isValidURL } from "../utils";
 
 export default abstract class Crawler {
     private _host: string;
-    private _limit: number;
-    private _semesterID: string;
     private _keyMap: Map<string, string>
 
-    public static readonly DEFAULT_VALUE = {
+    public static readonly DEFAULT_VALUE: CrawlerOption = {
         host: "http://112.137.129.115/tkb/listbylist.php",
-        limit: 1000,
-        semesterID: "036",
         keyMap: new Map<string, string>()
     }
 
@@ -30,25 +25,6 @@ export default abstract class Crawler {
         else throw new Error(host + " is not a valid host url");
     }
 
-    public get limit(): number {
-        return this._limit;
-    }
-
-    public set limit(limit: number) {
-        if (limit >= 0 && limit <= 5000) this._limit = limit
-        else throw new Error(limit + " is not in range [0, 5000]");
-    }
-
-    public get semesterID(): string {
-        return this._semesterID;
-    }
-
-    public set semesterID(semesterID: string) {
-        let regex = /\d{3}/;
-        if (isExactMatch(regex, semesterID)) this._semesterID = semesterID
-        else throw new Error(semesterID + " is not a valid semester ID");
-    }
-
     public get keyMap(): Map<string, string> {
         return this._keyMap;
     }
@@ -57,18 +33,16 @@ export default abstract class Crawler {
         this._keyMap = map;
     }
 
-    public constructor({ host, limit, semesterID, keyMap }: CrawlerOption) {
+    public constructor({ host, keyMap }: CrawlerOption) {
         this.host = host || Crawler.DEFAULT_VALUE.host;
-        this.limit = limit || Crawler.DEFAULT_VALUE.limit;
-        this.semesterID = semesterID || Crawler.DEFAULT_VALUE.semesterID;
         this.keyMap = keyMap || Crawler.DEFAULT_VALUE.keyMap;
     }
 
     /**
- * Join all queries into single url string
- * @param query query 
- * @returns url
- */
+     * Join all queries into single url string
+     * @param query query 
+     * @returns url
+     */
     private joinParams(query: Query = {}): string {
         return this.host + "?" + Object.keys(query)
             .map(key => {

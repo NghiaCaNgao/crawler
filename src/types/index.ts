@@ -2,9 +2,16 @@ export interface Query { }
 
 export interface CrawlerOption {
     host?: string,
+    keyMap?: Map<string, string>
+}
+
+export interface CalendarOption extends CrawlerOption {
+    semesterID?: string,
+}
+
+export interface SubjectOption extends CrawlerOption {
     limit?: number,
     semesterID?: string,
-    keyMap?: Map<string, string>
 }
 
 export interface Response<T = any> {
