@@ -1,20 +1,16 @@
 /**
- * Check if input string matches exactly with pattern
- * @param regex regex pattern 
- * @param input input test
- * @returns boolean
+ * Check if the given string is a valid URL string
+ * @param input 
+ * @returns 
  */
-function isExactMatch(regex: RegExp, input: string): boolean {
-    const matchText = input.match(regex);
-    return ((matchText) ? matchText[0] : "").length === input.length;
-}
 
 function isValidURL(input: string): boolean {
-    var regex = /^https?:\/\/\w+(\.\w+)*(:[0-9]+)?\/?(\/[.\-\w]*)*$/ig; // URL checker
-    return isExactMatch(regex, input);
+    // URL pattern
+    let regex = /^((http(s)?):\/\/)?([(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}|localhost|(\d{1,3}\.){3}\d{1,3})\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/ig;
+
+    return input.search(regex) >= 0;
 }
 
 export {
-    isExactMatch,
     isValidURL
 }

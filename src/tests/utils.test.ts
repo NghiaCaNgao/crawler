@@ -1,28 +1,26 @@
 import { describe, expect, test } from '@jest/globals';
-import { isExactMatch, isValidURL } from "../utils"
+import { isValidURL } from "../utils"
 
-describe("Utils testing", () => {
-    test("Test isExactMatch", () => {
-        var regex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig; // URL checker
-
-        expect(isExactMatch(regex, "https://jestjs.io/docs/getting-started"))
-            .toBe(true);
-        expect(isExactMatch(regex, "jestjs.io/docs/getting-started"))
-            .toBe(true);
-        expect(isExactMatch(regex, "chau len bar"))
-            .toBe(false);
-        expect(isExactMatch(regex, "https://jestjs.io/docs/getting-started 12"))
-            .toBe(false);
-    });
-
-    test("Test isValid URL", () => {
+describe("Utils testing pack", () => {
+    test("`isValidURL` func.", () => {
         expect(isValidURL("https://jestjs.io/docs/getting-started"))
             .toBe(true);
+        expect(isValidURL("https://regexr.com/39nr7a?q=1&r=aa"))
+            .toBe(true);
+        expect(isValidURL("http://regexr.com/39nr7a?q=1&r=aa"))
+            .toBe(true);
         expect(isValidURL("jestjs.io/docs/getting-started"))
-            .toBe(false);
+            .toBe(true);
+        expect(isValidURL("jestjs.io:5500/docs/getting-started"))
+            .toBe(true);
+        expect(isValidURL("http://112.137.129.115"))
+            .toBe(true);
+        expect(isValidURL("http://localhost:5000"))
+            .toBe(true);
+
         expect(isValidURL("https://jestjs.io/docs/getting-started 12"))
             .toBe(false);
-        expect(isValidURL("chau len bar"))
+        expect(isValidURL("go to bar"))
             .toBe(false);
     })
 })

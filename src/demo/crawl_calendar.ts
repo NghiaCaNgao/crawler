@@ -8,3 +8,4 @@ import CalendarCrawler from "../core/calendar.crawler";
 })();
 
 // npx ts-node src/demo/crawl_calendar.ts
+// git rm -rf --cached .

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "concurrently \"cd src/tests/server_test && node .\" \"jest --coverage --watchAll\"",
-    "test_only": "jest --coverage --watchAll"
+    "setup": "cd src/tests/server_test && node .",
+    "test": "jest --coverage"
   },
   "author": "",
   "license": "ISC",

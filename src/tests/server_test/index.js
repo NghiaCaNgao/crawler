@@ -1,8 +1,12 @@
 const express = require("express");
 const fs = require("fs");
+const bodyParser = require("body-parser");
 
 var app = express();
 var port = 5000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
     try {
@@ -17,9 +21,26 @@ app.get("/", (req, res) => {
         }
 
     } catch (error) {
-        res.send(error);
+        res.status(500).send(error);
     }
 });
+
+app.post("/", bodyParser.json(), (req, res) => {
+    try {
+        console.log(req.body);
+        const query = req.body;
+
+        if (query.d && query.d == 10) {
+            const data = fs.readFileSync("./data/test_fetch.txt");
+            res.status(200).send(data.toString());
+        } else {
+            res.status(202).send("");
+        }
+
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
 
 app.get("/calendar", (req, res) => {
     try {

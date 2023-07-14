@@ -1,17 +1,21 @@
 /**
- * @author: Nghiacangao
- * @description: An abstract class played as a wrapper class and provided core methods for the derived includes getter/ setter, join params, fetch and parse fetched data
+ * @author Nghiacangao
+ * @description
+ * An abstract class plays as a wrapper and provides core methods for the 
+ * derived includes getter/ setter, join params, fetch and parse fetched data.
  */
 
 import axios from "axios";
-import { CrawlerOption, Query, Response } from "../types";
+import { CrawlerOption, Response } from "../types";
 import { isValidURL } from "../utils";
+
+export type MethodType = "GET" | "POST";
 
 export default abstract class Crawler {
     private _host: string;
     private _keyMap: Map<string, string>
 
-    public static readonly DEFAULT_VALUE: CrawlerOption = {
+    public static readonly DEFAULT_OPTIONS: CrawlerOption = {
         host: "http://112.137.129.115/tkb/listbylist.php",
         keyMap: new Map<string, string>()
     }
@@ -22,7 +26,7 @@ export default abstract class Crawler {
 
     public set host(host: string) {
         if (isValidURL(host)) this._host = host
-        else throw new Error(host + " is not a valid host url");
+        else throw new Error("'" + host + "' is not a valid host.");
     }
 
     public get keyMap(): Map<string, string> {
@@ -34,23 +38,39 @@ export default abstract class Crawler {
     }
 
     public constructor({ host, keyMap }: CrawlerOption) {
-        this.host = host || Crawler.DEFAULT_VALUE.host;
-        this.keyMap = keyMap || Crawler.DEFAULT_VALUE.keyMap;
+        this.host = host || Crawler.DEFAULT_OPTIONS.host;
+        this.keyMap = keyMap || Crawler.DEFAULT_OPTIONS.keyMap;
     }
 
     /**
-     * Join all queries into single url string
-     * @param query query data
-     * @returns url after joining
+     * Test the given key whether in keyMap or not.
+     * @param key key needs testing.
+     * @returns 
      */
-    private joinParams(query: Query = {}): string {
-        return this.host + "?" + Object.keys(query)
-            .map(key => {
-                if (this.keyMap.get(key))
-                    return this.keyMap.get(key) + "=" + query[key];
-                else throw new Error(key + " is not in Query type")
-            })
-            .join("&");
+    private isValidKey(key: string): boolean {
+        // conflicted keys are all the names of properties in this class. Eg. ["host", "keyMap"]
+        const ConflictedKey: Set<string> = new Set(
+            Object.getOwnPropertyNames(this)
+                .map(key_name => key_name.slice(1)));
+
+        return !!this.keyMap.get(key) && !ConflictedKey.has(key);
+    }
+
+    /**
+     * Rename key.
+     * @param query 
+     * @returns 
+     */
+    private renameKey(query: CrawlerOption): object {
+        const newObject = {};
+
+        Object.keys(query)
+            .forEach(key => {
+                if (this.isValidKey(key)) newObject[this.keyMap.get(key)] = query[key];
+                else throw new Error("'" + key + "' is not in key map.")
+            });
+
+        return newObject;
     }
 
     /**
@@ -62,9 +82,12 @@ export default abstract class Crawler {
      * @param query query data
      * @returns {Promise<Response<string>>} Response in raw text.
      */
-    protected async fetch(query: Query = {}): Promise<Response<string>> {
+    protected async fetch(query: CrawlerOption, method: MethodType = "GET"): Promise<Response<string>> {
         try {
-            const response = await axios.get(this.joinParams(query));
+            const response = (method === "GET")
+                ? await axios.get(this.host, { params: this.renameKey(query) })
+                : await axios.post(this.host, this.renameKey(query));
+
             return {
                 status: response.status,
                 data: (response.status === 200) ? response.data : "",
