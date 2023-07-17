@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import SubjectCrawler from "../core/subject.crawler";
+import SubjectCrawler from "../core/subject.get";
 import { SubjectOption } from "../types";
 
 describe("Subject Crawler testing pack", () => {

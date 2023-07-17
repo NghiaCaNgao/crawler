@@ -7,7 +7,7 @@ export class CalendarCrawler<
     T extends CrawlerOption = CrawlerOption,
     Q extends CalendarOption = CalendarOption> extends CalendarGetter<T, Q> {
 
-    private _cQuery: Q;
+    private _cQuery: Q = {} as Q;
 
     public static readonly DEFAULT_OPTIONS: DOC = {
         semesterID: "78",
@@ -29,7 +29,6 @@ export class CalendarCrawler<
             host: host || CalendarCrawler.DEFAULT_OPTIONS.host
         } as T);
 
-        this._cQuery = {} as Q; // initialize
         this.cQuery = query || {} as Q // set query
     }
 

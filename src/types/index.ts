@@ -13,7 +13,7 @@ export interface CalendarOption {
     day?: string
 }
 
-export interface SubjectOption extends CrawlerOption {
+export interface SubjectOption {
     limit?: number,
     semesterID?: string,
     studentID?: string,
@@ -52,4 +52,8 @@ export interface Response<T = any> {
 export interface CalendarResponse {
     length: number
     data: Calendar[]
+}
+
+export interface SubjectResponse {
+
 }
