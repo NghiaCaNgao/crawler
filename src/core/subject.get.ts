@@ -2,6 +2,8 @@ import { CalendarOption, CrawlerOption, SubjectOption } from "../types";
 import Crawler from "./crawler";
 
 export default class SubjectCrawler extends Crawler {
+    private _query: SubjectOption;
+    
     public static readonly DEFAULT_OPTIONS: SubjectOption = {
         host: "http://112.137.129.87/qldt/",
         limit: 1000,
@@ -21,24 +23,13 @@ export default class SubjectCrawler extends Crawler {
         }))
     };
 
-    private _limit: number;
-    private _semesterID: string;
-    private _studentID?: string;
-    private _studentName?: string;
-    private _studentDateBirth?: string;
-    private _studentOfficialClass?: string;
-    private _subjectClassID?: string;
-    private _subjectClassName?: string;
-    private _subjectGroup?: string;
-    private _subjectCreditNumber?: number;
-    private _subjectNote?: string;
-    private _page?: number;
-
     public get limit(): number {
         return this._limit;
     }
 
     public set limit(limit: number) {
+        if (limit === undefined) return;
+
         if (limit >= 0 && limit <= 5000) this._limit = limit
         else throw new Error("'" + limit + "' is not in range [0, 5000].");
     }
@@ -49,6 +40,9 @@ export default class SubjectCrawler extends Crawler {
 
     public set semesterID(semesterID: string) {
         const regex = /^\d{3}$/;
+
+        if (semesterID === undefined) return;
+
         if (semesterID.search(regex) >= 0) this._semesterID = semesterID
         else throw new Error("'" + semesterID + "' is not a valid semester ID format. Eg. 036");
     }
@@ -181,6 +175,7 @@ export default class SubjectCrawler extends Crawler {
     }
 
     constructor(option: SubjectOption = {}) {
+        // TODO: check if host and keymap, limit is undefined
         super({
             host: option.host || SubjectCrawler.DEFAULT_OPTIONS.host,
             keyMap: option.keyMap || SubjectCrawler.DEFAULT_OPTIONS.keyMap,

@@ -1,9 +1,9 @@
 export interface CrawlerOption {
-    host?: string,
-    keyMap?: Map<string, string>
+    readonly host?: string,
+    readonly keyMap?: Map<string, string>
 }
 
-export interface CalendarOption extends CrawlerOption {
+export interface CalendarOption {
     semesterID?: string,
     subjectID?: string,
     subjectClassID?: string,
@@ -28,28 +28,28 @@ export interface SubjectOption extends CrawlerOption {
     page?: number
 }
 
+export interface Calendar {
+    index: number,
+    courseSubjectID: string,
+    courseSubjectName: string,
+    courseCredits: number,
+    courseSubjectClassID: string,
+    teacherName: string,
+    studentCount: number,
+    lessonOfDay: string,
+    day: string,
+    lessons: Array<Number>,
+    amphitheater: string,
+    courseGroup: string,
+}
+
 export interface Response<T = any> {
     status: number;
     data: T;
     message: string;
 }
 
-export interface ResponseCalendar {
+export interface CalendarResponse {
     length: number
     data: Calendar[]
-}
-
-export interface Calendar {
-    index?: number,
-    courseSubjectID?: string,
-    courseSubjectName?: string,
-    courseCredits?: number,
-    courseSubjectClassID?: string,
-    teacherName?: string,
-    studentCount?: number,
-    lessonOfDay?: string,
-    day?: string,
-    lessons?: Array<Number>,
-    amphitheater?: string,
-    courseGroup?: string,
 }

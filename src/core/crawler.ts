@@ -5,11 +5,11 @@
  * derived includes getter/ setter, join params, fetch and parse fetched data.
  */
 
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { CrawlerOption, Response } from "../types";
 import { isValidURL } from "../utils";
 
-export type MethodType = "GET" | "POST";
+export type MethodType = "GET" | "POST_URL_ENCODED" | "POST_FORM";
 
 export default abstract class Crawler {
     private _host: string;
@@ -24,7 +24,9 @@ export default abstract class Crawler {
         return this._host;
     }
 
-    public set host(host: string) {
+    private set host(host: string) {
+        if (host === undefined) return;
+
         if (isValidURL(host)) this._host = host
         else throw new Error("'" + host + "' is not a valid host.");
     }
@@ -33,7 +35,9 @@ export default abstract class Crawler {
         return this._keyMap;
     }
 
-    public set keyMap(map: Map<string, string>) {
+    private set keyMap(map: Map<string, string>) {
+        if (map === undefined) return;
+
         this._keyMap = map;
     }
 
@@ -49,11 +53,12 @@ export default abstract class Crawler {
      */
     private isValidKey(key: string): boolean {
         // conflicted keys are all the names of properties in this class. Eg. ["host", "keyMap"]
-        const ConflictedKey: Set<string> = new Set(
-            Object.getOwnPropertyNames(this)
-                .map(key_name => key_name.slice(1)));
+        // const ConflictedKey: Set<string> = new Set(
+        //     Object.getOwnPropertyNames(this)
+        //         .map(key_name => key_name.slice(1)));
 
-        return !!this.keyMap.get(key) && !ConflictedKey.has(key);
+        // return !!this.keyMap.get(key) && !ConflictedKey.has(key);
+        return this.keyMap.get(key) !== undefined;
     }
 
     /**
@@ -66,8 +71,8 @@ export default abstract class Crawler {
 
         Object.keys(query)
             .forEach(key => {
-                if (this.isValidKey(key)) newObject[this.keyMap.get(key)] = query[key];
-                else throw new Error("'" + key + "' is not in key map.")
+                if (this.isValidKey(key) && query[key] !== undefined) newObject[this.keyMap.get(key)] = query[key];
+                // else throw new Error("'" + key + "' is not in key map.")
             });
 
         return newObject;
@@ -84,9 +89,15 @@ export default abstract class Crawler {
      */
     protected async fetch(query: CrawlerOption, method: MethodType = "GET"): Promise<Response<string>> {
         try {
-            const response = (method === "GET")
-                ? await axios.get(this.host, { params: this.renameKey(query) })
-                : await axios.post(this.host, this.renameKey(query));
+            var response: AxiosResponse<any, any>;
+
+            if (method === "GET") {
+                response = await axios.get(this.host, { params: this.renameKey(query) });
+            } else if (method === "POST_URL_ENCODED") {
+                response = await axios.post(this.host, this.renameKey(query));
+            } else if (method === "POST_FORM") {
+                response = await axios.postForm(this.host, this.renameKey(query))
+            }
 
             return {
                 status: response.status,

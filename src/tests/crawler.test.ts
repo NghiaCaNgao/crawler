@@ -46,7 +46,7 @@ const DEFAULT_OPTIONS: CrawlerOption = Crawler.DEFAULT_OPTIONS;
 describe("Crawler abstract class testing pack.", () => {
     describe("Constructor", () => {
         test("Default properties without options", () => {
-            let instance = new FakeDerivedClass();    // setup with default value
+            let instance = new FakeDerivedClass();
 
             expect({
                 host: instance.host,
@@ -96,6 +96,7 @@ describe("Crawler abstract class testing pack.", () => {
             const test_pass = "https://jestjs.io/docs/getting-started";
             const test_fail = "you len bar";
 
+            expect(tester(undefined)).toBe(Crawler.DEFAULT_OPTIONS.host)
             expect(tester(test_pass)).toBe(test_pass);
             expect(() => tester(test_fail)).toThrowError("'" + test_fail + "' is not a valid host.");
         });
@@ -111,6 +112,7 @@ describe("Crawler abstract class testing pack.", () => {
                 "c": "d"
             }));
 
+            expect(tester(undefined)).toBe(Crawler.DEFAULT_OPTIONS.keyMap)
             expect(tester(test_pass)).toBe(test_pass);
         });
     })
@@ -175,7 +177,7 @@ describe("Crawler abstract class testing pack.", () => {
         // Pass
         expect(await tester("http://localhost:5000", { c: "12", a: 10 })).toStrictEqual(FetchValueOutput_1);
         // Pass
-        expect(await tester("http://localhost:5000", { c: "12", a: 10 }, "POST"))
+        expect(await tester("http://localhost:5000", { c: "12", a: 10 }, "POST_URL_ENCODED"))
             .toStrictEqual(FetchValueOutput_1);
         // failed to connect
         expect(await tester("http://localhost:5001", { c: "12", a: 10 })).toStrictEqual(FetchValueOutput_2);

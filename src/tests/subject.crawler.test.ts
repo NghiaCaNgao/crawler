@@ -3,7 +3,7 @@ import SubjectCrawler from "../core/subject.crawler";
 import { SubjectOption } from "../types";
 
 describe("Subject Crawler testing pack", () => {
-    describe("Tests constructor.", () => {
+    describe("Constructor", () => {
         test("Constructor without options", () => {
             const test = new SubjectCrawler();
 
@@ -64,18 +64,24 @@ describe("Subject Crawler testing pack", () => {
                 keyMap: SubjectCrawler.DEFAULT_OPTIONS.keyMap,
                 ...result
             });
+        });
+
+        test("Constructor with error", () => {
+            expect(() => new SubjectCrawler({ studentID: "00" }))
+                .toThrowError("'00' is not a valid student ID format. Eg. 21020366")
         })
     });
 
     describe("getters/setters", () => {
-        const testSubjectCrawler = new SubjectCrawler();
+        const instance = new SubjectCrawler();
 
         test("`limit` prop", () => {
             const tester = (limit: number) => {
-                testSubjectCrawler.limit = limit;
-                return testSubjectCrawler.limit;
+                instance.limit = limit;
+                return instance.limit;
             }
 
+            expect(tester(undefined)).toBe(SubjectCrawler.DEFAULT_OPTIONS.limit)
             expect(tester(0)).toBe(0);
             expect(tester(5000)).toBe(5000);
             expect(tester(2000)).toBe(2000);
@@ -84,11 +90,26 @@ describe("Subject Crawler testing pack", () => {
             expect(() => tester(6000)).toThrowError("'6000' is not in range [0, 5000].");
         });
 
+
+        test("`page` prop", () => {
+            const tester = (page: number) => {
+                instance.page = page;
+                return instance.page;
+            }
+
+            expect(tester(undefined)).toBe(SubjectCrawler.DEFAULT_OPTIONS.page)
+            expect(tester(1)).toBe(1);
+            expect(() => tester(0)).toThrowError("Page number must be greater than 0.");
+        })
+
         test("`semesterID` prop", () => {
             const tester = (semesterID: string) => {
-                testSubjectCrawler.semesterID = semesterID;
-                return testSubjectCrawler.semesterID;
+                instance.semesterID = semesterID;
+                return instance.semesterID;
             }
+
+            // FIXME:
+            expect(tester(undefined)).toBe(SubjectCrawler.DEFAULT_OPTIONS.semesterID);
 
             expect(tester("036")).toBe("036");
             expect(tester("000")).toBe("000");
@@ -100,8 +121,8 @@ describe("Subject Crawler testing pack", () => {
 
         test("`studentID` prop", () => {
             const tester = (studentID: string) => {
-                testSubjectCrawler.studentID = studentID;
-                return testSubjectCrawler.studentID;
+                instance.studentID = studentID;
+                return instance.studentID;
             }
 
             expect(tester(undefined)).toBe(undefined);
@@ -115,8 +136,8 @@ describe("Subject Crawler testing pack", () => {
 
         test("`studentName` prop", () => {
             const tester = (studentName: string) => {
-                testSubjectCrawler.studentName = studentName;
-                return testSubjectCrawler.studentName;
+                instance.studentName = studentName;
+                return instance.studentName;
             }
 
             expect(tester(undefined)).toBe(undefined);
@@ -128,8 +149,8 @@ describe("Subject Crawler testing pack", () => {
 
         test("`studentDateBirth` prop", () => {
             const tester = (studentDateBirth: string) => {
-                testSubjectCrawler.studentDateBirth = studentDateBirth;
-                return testSubjectCrawler.studentDateBirth;
+                instance.studentDateBirth = studentDateBirth;
+                return instance.studentDateBirth;
             }
 
             expect(tester(undefined)).toBe(undefined);
@@ -143,8 +164,8 @@ describe("Subject Crawler testing pack", () => {
 
         test("`studentOfficialClass` prop", () => {
             const tester = (studentOfficialClass: string) => {
-                testSubjectCrawler.studentOfficialClass = studentOfficialClass;
-                return testSubjectCrawler.studentOfficialClass;
+                instance.studentOfficialClass = studentOfficialClass;
+                return instance.studentOfficialClass;
             }
 
             expect(tester(undefined)).toBe(undefined);
@@ -160,8 +181,8 @@ describe("Subject Crawler testing pack", () => {
 
         test("`subjectClassID` prop", () => {
             const tester = (subjectClassID: string) => {
-                testSubjectCrawler.subjectClassID = subjectClassID;
-                return testSubjectCrawler.subjectClassID;
+                instance.subjectClassID = subjectClassID;
+                return instance.subjectClassID;
             }
 
             expect(tester(undefined)).toBe(undefined);
@@ -176,8 +197,8 @@ describe("Subject Crawler testing pack", () => {
 
         test("`subjectClassName` prop", () => {
             const tester = (subjectClassName: string) => {
-                testSubjectCrawler.subjectClassName = subjectClassName;
-                return testSubjectCrawler.subjectClassName;
+                instance.subjectClassName = subjectClassName;
+                return instance.subjectClassName;
             }
 
             expect(tester(undefined)).toBe(undefined);
@@ -188,8 +209,8 @@ describe("Subject Crawler testing pack", () => {
 
         test("`subjectGroup` prop", () => {
             const tester = (subjectGroup: string) => {
-                testSubjectCrawler.subjectGroup = subjectGroup;
-                return testSubjectCrawler.subjectGroup;
+                instance.subjectGroup = subjectGroup;
+                return instance.subjectGroup;
             }
 
             expect(tester(undefined)).toBe(undefined);
@@ -202,8 +223,8 @@ describe("Subject Crawler testing pack", () => {
 
         test("`subjectCreditNumber` prop", () => {
             const tester = (subjectCredit: number) => {
-                testSubjectCrawler.subjectCreditNumber = subjectCredit;
-                return testSubjectCrawler.subjectCreditNumber;
+                instance.subjectCreditNumber = subjectCredit;
+                return instance.subjectCreditNumber;
             }
 
             expect(tester(undefined)).toBe(undefined);
@@ -217,23 +238,13 @@ describe("Subject Crawler testing pack", () => {
 
         test("`subjectNote` prop", () => {
             const tester = (subjectNote: string) => {
-                testSubjectCrawler.subjectNote = subjectNote;
-                return testSubjectCrawler.subjectNote;
+                instance.subjectNote = subjectNote;
+                return instance.subjectNote;
             }
 
             expect(tester(undefined)).toBe(undefined);
             expect(tester("a")).toBe("a");
             expect(tester("a   ")).toBe("a");
-        })
-
-        test("`page` prop", () => {
-            const tester = (page: number) => {
-                testSubjectCrawler.page = page;
-                return testSubjectCrawler.page;
-            }
-
-            expect(tester(1)).toBe(1);
-            expect(() => tester(0)).toThrowError("Page number must be greater than 0.");
         })
     });
 
