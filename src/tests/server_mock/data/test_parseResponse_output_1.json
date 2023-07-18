@@ -1,0 +1,5 @@
+{
+    "status": 400,
+    "data": {},
+    "message": "Status code in response must be 200."
+}

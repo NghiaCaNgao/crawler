@@ -1,0 +1,5 @@
+{
+    "status": 500,
+    "data": "Throw an error intentionally",
+    "message": "Internal Server Error"
+}
