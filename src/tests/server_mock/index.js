@@ -12,7 +12,7 @@ app.use(upload.none()); // for uploading and form data
 
 app.get("/", (req, res) => {
     try {
-        console.log(req.query, typeof req.query.error);
+        console.log("In GET /", req.query, typeof req.query.error);
         const query = req.query;
 
         if (query.error && query.error === "false") {
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
     try {
-        console.log(req.body, typeof req.body.error);
+        console.log("In POST /", req.body, typeof req.body.error);
         const query = req.body;
 
         if ((typeof query.error === "boolean" && !query.error) ||
@@ -44,20 +44,26 @@ app.post("/", (req, res) => {
     }
 })
 
-app.get("/calendar", (req, res) => {
+app.post("/calendar", (req, res) => {
     try {
-        const query = req.query;
-        console.log(query);
+        console.log("In POST /calendar", req.body, typeof req.body.error);
+        const query = req.body;
+        const test_error = query.error &&
+            typeof query.error === "string" &&
+            query.error === "true";
+        console.log("test_error", test_error);
+        
+        if (!test_error) {
+            const path = "./data/test_get_calendar_1.txt";
+            const data = fs.readFileSync(path);
 
-        const path = "./data/".concat(
-            (query.fail_test_num)
-                ? `test_parse_calendar_crawler_${query.fail_test_num}.txt`
-                : "test_parse_calendar_crawler_1.txt");
-
-        const data = fs.readFileSync(path);
-        res.status(200).send(data.toString());
+            res.status(200).send(data.toString());
+        }
+        else {
+            res.status(500).send("Throw an error intentionally");
+        }
     } catch (error) {
-        res.send(error);
+        res.status(500).send(error);
     }
 })
 

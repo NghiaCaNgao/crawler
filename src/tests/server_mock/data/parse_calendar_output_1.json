@@ -1,0 +1,243 @@
+{
+    "data": [
+        {
+            "amphitheater": "PM 207-G2",
+            "courseCredits": 3,
+            "courseGroup": "1",
+            "courseSubjectClassID": "INT1008 70",
+            "courseSubjectID": "INT1008",
+            "courseSubjectName": "Nhập môn lập trình",
+            "day": "7",
+            "index": 1,
+            "lessonOfDay": "Sáng",
+            "lessons": [
+                1,
+                5
+            ],
+            "studentCount": 26,
+            "teacherName": "ThS.Hoàng Thị Ngọc Trang"
+        },
+        {
+            "amphitheater": "PM 201-G2",
+            "courseCredits": 3,
+            "courseGroup": "1",
+            "courseSubjectClassID": "INT1008 71",
+            "courseSubjectID": "INT1008",
+            "courseSubjectName": "Nhập môn lập trình",
+            "day": "7",
+            "index": 2,
+            "lessonOfDay": "Sáng",
+            "lessons": [
+                1,
+                5
+            ],
+            "studentCount": 22,
+            "teacherName": "ThS.Lê Minh Khôi"
+        },
+        {
+            "amphitheater": "308-GĐ2",
+            "courseCredits": 2,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "INT3514 70",
+            "courseSubjectID": "INT3514",
+            "courseSubjectName": "Pháp luật và đạo đức nghề nghiệp trong CNTT",
+            "day": "7",
+            "index": 3,
+            "lessonOfDay": "Sáng",
+            "lessons": [
+                1,
+                5
+            ],
+            "studentCount": 79,
+            "teacherName": "TS.Nguyễn Thành Luân"
+        },
+        {
+            "amphitheater": "303-GĐ2",
+            "courseCredits": 3,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "INT2208 50",
+            "courseSubjectID": "INT2208",
+            "courseSubjectName": "Công nghệ phần mềm",
+            "day": "7",
+            "index": 4,
+            "lessonOfDay": "Sáng",
+            "lessons": [
+                1,
+                5
+            ],
+            "studentCount": 40,
+            "teacherName": "TS.Trần Hoàng Việt; PGS.TS.Trương Ninh Thuận"
+        },
+        {
+            "amphitheater": "301-G2",
+            "courseCredits": 2,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "POL1001 71",
+            "courseSubjectID": "POL1001",
+            "courseSubjectName": "Tư tưởng Hồ Chí Minh",
+            "day": "7",
+            "index": 5,
+            "lessonOfDay": "Sáng",
+            "lessons": [
+                1,
+                5
+            ],
+            "studentCount": 96,
+            "teacherName": "GV.TS.Nguyễn Thị Thu Hường"
+        },
+        {
+            "amphitheater": "106-GĐ3",
+            "courseCredits": 2,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "HIS1001 70",
+            "courseSubjectID": "HIS1001",
+            "courseSubjectName": "Lịch sử Đảng Cộng sản Việt Nam",
+            "day": "7",
+            "index": 6,
+            "lessonOfDay": "Sáng",
+            "lessons": [
+                1,
+                5
+            ],
+            "studentCount": 85,
+            "teacherName": "TS.Phạm Thị Thùy"
+        },
+        {
+            "amphitheater": "209-G2",
+            "courseCredits": 3,
+            "courseGroup": "1",
+            "courseSubjectClassID": "ELT2050E 71",
+            "courseSubjectID": "ELT2050E",
+            "courseSubjectName": "Nguyên lý kỹ thuật điện tử",
+            "day": "7",
+            "index": 7,
+            "lessonOfDay": "Sáng",
+            "lessons": [
+                1,
+                5
+            ],
+            "studentCount": 20,
+            "teacherName": "TS.Phạm Ngọc Thảo; ThS.Trần Thanh Hằng"
+        },
+        {
+            "amphitheater": "3-G3",
+            "courseCredits": 4,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "ELT2037 70",
+            "courseSubjectID": "ELT2037",
+            "courseSubjectName": "Thực tập thiết kế hệ thống",
+            "day": "7",
+            "index": 8,
+            "lessonOfDay": "Chiều",
+            "lessons": [
+                7,
+                10
+            ],
+            "studentCount": 115,
+            "teacherName": "TS.Nguyễn Thị Thanh Vân"
+        },
+        {
+            "amphitheater": "PM 207-G2",
+            "courseCredits": 3,
+            "courseGroup": "2",
+            "courseSubjectClassID": "INT1008 70",
+            "courseSubjectID": "INT1008",
+            "courseSubjectName": "Nhập môn lập trình",
+            "day": "7",
+            "index": 9,
+            "lessonOfDay": "Chiều",
+            "lessons": [
+                7,
+                11
+            ],
+            "studentCount": 24,
+            "teacherName": "ThS.Hoàng Thị Ngọc Trang"
+        },
+        {
+            "amphitheater": "Khoa CNTT",
+            "courseCredits": 3,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "INT4002 70",
+            "courseSubjectID": "INT4002",
+            "courseSubjectName": "Thực tập doanh nghiệp",
+            "day": "7",
+            "index": 10,
+            "lessonOfDay": "Chiều",
+            "lessons": [
+                7,
+                11
+            ],
+            "studentCount": 258,
+            "teacherName": "Khoa CNTT"
+        },
+        {
+            "amphitheater": "308-GĐ2",
+            "courseCredits": 2,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "INT3514 50",
+            "courseSubjectID": "INT3514",
+            "courseSubjectName": "Pháp luật và đạo đức nghề nghiệp trong CNTT",
+            "day": "7",
+            "index": 11,
+            "lessonOfDay": "Chiều",
+            "lessons": [
+                7,
+                11
+            ],
+            "studentCount": 78,
+            "teacherName": "TS.Nguyễn Thành Luân"
+        },
+        {
+            "amphitheater": "209-G2",
+            "courseCredits": 3,
+            "courseGroup": "2",
+            "courseSubjectClassID": "ELT2050E 71",
+            "courseSubjectID": "ELT2050E",
+            "courseSubjectName": "Nguyên lý kỹ thuật điện tử",
+            "day": "7",
+            "index": 12,
+            "lessonOfDay": "Chiều",
+            "lessons": [
+                7,
+                11
+            ],
+            "studentCount": 19,
+            "teacherName": "TS.Phạm Ngọc Thảo; ThS.Nguyễn Thu Hằng"
+        },
+        {
+            "amphitheater": "301-G2",
+            "courseCredits": 2,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "POL1001 73",
+            "courseSubjectID": "POL1001",
+            "courseSubjectName": "Tư tưởng Hồ Chí Minh",
+            "day": "7",
+            "index": 13,
+            "lessonOfDay": "Chiều",
+            "lessons": [
+                7,
+                11
+            ],
+            "studentCount": 77,
+            "teacherName": "GV.TS.Nguyễn Thị Thu Hường"
+        },
+        {
+            "amphitheater": "106-GĐ3",
+            "courseCredits": 2,
+            "courseGroup": "CL",
+            "courseSubjectClassID": "HIS1001 71",
+            "courseSubjectID": "HIS1001",
+            "courseSubjectName": "Lịch sử Đảng Cộng sản Việt Nam",
+            "day": "7",
+            "index": 14,
+            "lessonOfDay": "Chiều",
+            "lessons": [
+                7,
+                11
+            ],
+            "studentCount": 87,
+            "teacherName": "TS.Phạm Thị Thùy"
+        }
+    ],
+    "length": 14
+}
